@@ -65,6 +65,12 @@ When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
   with_scope(parent) { When "#{step}:", table_or_string }
 end
 
+Then /^the following categories exist:$/ do |table|
+  table.rows.flatten.each do |category_name|
+    Category.create!(name: category_name)
+  end
+end
+
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -124,6 +130,10 @@ end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
+end
+
+Then /^(?:|I )should be on the "([^"]*)" page $/ do |page_name|
+  expect(page.current_path).to eq(path_to(page_name))
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

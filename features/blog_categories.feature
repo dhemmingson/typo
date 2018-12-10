@@ -4,7 +4,8 @@ Feature: Create and edit blog categories
   I want to create and edit categories
   
   Background:
-    Given I have logged in as an admin
+    Given the blog is set up
+    And I am logged into the admin panel
     Then I should be on the admin page
     And the following categories exist:
       | name   |
@@ -12,7 +13,7 @@ Feature: Create and edit blog categories
       | Travel |
 
   Scenario: Create a category
-    Given I click "Categories"
+    Given I follow "Categories"
     Then I should see a form for creating a new category
     When I fill in Name with "Business"
     And I click "Save"

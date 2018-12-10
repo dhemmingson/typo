@@ -46,6 +46,7 @@ gem 'acts_as_tree_rails3'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 group :development, :test do
+  gem 'pry'
   gem 'ruby-debug19'
   gem 'factory_girl', '~> 2.2'
   gem 'webrat'
