@@ -15,14 +15,21 @@ Feature: Create and edit blog categories
   Scenario: Create a category
     Given I follow "Categories"
     Then I should see a form for creating a new category
-    When I fill in Name with "Business"
+    When I fill in "Name" with "Business"
     And I click "Save"
     Then I should be on the categories admin page
-    And I should see category has been created
-    And I should see Business in the Title column
+    And I should see "Category was successfully saved"
+    And I should see "Business"
     
-
+  Scenario: Adding a new category fails
+    Given I follow "Categories"
+    Then I should see a form for creating a new category
+    When I fill in "Name" with ""
+    And I click "Save"
+    And I should be on the categories admin page
+    And I should see "Category could not be saved"
+    
   Scenario: Edit an existing category
     Given I am on the categories admin page
-    When I click the Edit link for the Music category
+    When I follow the "edit" link for the "Music" category
     Then I should be on the edit category page for Music

@@ -87,6 +87,11 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )follow the "([^"]*)" link for the "([^"]*)" category$/ do |link, category_name|
+  category = Category.where(name: category_name).first
+  find("a[href='/admin/categories/#{link}/#{category.id}']").click
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
@@ -142,6 +147,10 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
   else
     assert page.has_content?(text)
   end
+end
+
+Then /^I should see a form for creating a new category$/ do
+  expect(page).to have_selector 'input#category_name'
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
